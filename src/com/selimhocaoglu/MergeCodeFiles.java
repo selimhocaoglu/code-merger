@@ -1,20 +1,23 @@
 package com.selimhocaoglu;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class MergeCodeFiles {
 
     public static void main(String[] args) {
-        String directory = "source_code_directory";  // write your source code path
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Write your project path: ");
+        String directory = sc.nextLine();
+//        String directory = "source_code_directory";  // write your source code path
         String targetExtension = ".java";
         String desktopPath = System.getProperty("user.home").concat("/Desktop/");
         String outputFile = desktopPath.concat("merged_code.txt");
@@ -33,7 +36,7 @@ public class MergeCodeFiles {
                 List<Path> files = filePathStream
                         .filter(Files::isRegularFile)
                         .filter(p -> p.toString().endsWith(targetExtension))
-                        .collect(Collectors.toList());
+                        .toList();
 
                 for (Path filePath : files) {
                     writer.write("// File: " + filePath.toString() + "\n");
